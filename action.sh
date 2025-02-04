@@ -3,9 +3,9 @@
 echo "Running Netlify CLI command..."
 echo "> npx netlify-cli $*"
 
-set -e
-OUTPUT=$(bash -c "npx netlify-cli $*" | tr '\n' ' ')
-set +e
+set -o pipefail
+OUTPUT=$(bash -c "npx netlify-cli $*" | tr '\n' ' ') || exit $?
+set +o pipefail
 
 NETLIFY_OUTPUT=$(echo "$OUTPUT")
 
